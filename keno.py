@@ -1,2 +1,2 @@
-" Some changes are done master"
+" Some changes are done conflict commit"
 "Develop branch commit"
