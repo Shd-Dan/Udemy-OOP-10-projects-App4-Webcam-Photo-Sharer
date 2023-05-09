@@ -2,9 +2,12 @@
     GridLayout:
         cols: 1
         Camera:
+            id: camera
             resolution: (640, 480)
+            play: False
         Button:
             text: "Start Camera"
+            on_press: root.start()
         Button:
             text: 'Capture'
 

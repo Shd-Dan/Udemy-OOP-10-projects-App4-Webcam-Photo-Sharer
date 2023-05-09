@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
+
 from filesharer import FileSharer
 
 
@@ -9,7 +10,7 @@ Builder.load_file("frontend.kv")
 
 class CameraScreen(Screen):
     def start(self):
-        pass
+        self.ids.camera.play = True
 
     def stop(self):
         pass
@@ -29,7 +30,8 @@ class RootWidget(ScreenManager):
 class MainApp(App):
 
     def build(self):
-        return RootWidget
+        # Important notice! 'play' attribute of Camera by default is False.
+        return RootWidget()
 
 
 # run() is the method of inherited from App
