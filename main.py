@@ -10,6 +10,7 @@ Builder.load_file("frontend.kv")
 
 class CameraScreen(Screen):
     def start(self):
+        """Starts camera and changes Button text"""
         self.ids.camera.play = True
         self.ids.camera_button.text = "Stop Camera"
         self.ids.camera.texture = self.ids.camera._camera.texture
@@ -28,6 +29,9 @@ class CameraScreen(Screen):
         filepath = f'image_files/{current_time}.png'
         self.ids.camera.export_to_png(filepath)
 
+        # Accessing manager attribute from Screen instance
+        self.manager.current = 'image_screen'
+        self.manager.current_screen.ids.img.source = filepath
 
 class ImageScreen(Screen):
     pass
