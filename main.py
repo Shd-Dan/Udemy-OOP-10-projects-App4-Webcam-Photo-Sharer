@@ -1,7 +1,13 @@
+"""image_files directory to be created in case pulling project from Github repo"""
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
+# to copy in Clipboard import a class Clipboard
+from kivy.core.clipboard import Clipboard
 import time
+# to open link in browser
+import webbrowser
 
 from filesharer import FileSharer
 
@@ -36,15 +42,34 @@ class CameraScreen(Screen):
 
 
 class ImageScreen(Screen):
+    link_message = "Create a Link First"
+
     def create_link(self):
-        """ Access to filepath of CameraScreen class."""
+        """ Accesses the photo filepath, uploads it to the web, and inserts
+        the link in the Label widget"""
         file_path = App.get_running_app().root.ids.camera_screen.filepath
         # Instance of FileSharer class
-        filesharer = FileSharer(filepath = file_path)
+        filesharer = FileSharer(filepath=file_path)
         # returns an URL
-        url = filesharer.share()
+        self.url = filesharer.share()
         # Get access to label and assigns Widget instance text attribute with url string address
-        self.ids.link.text = url
+        self.ids.link.text = self.url
+
+    def copy_link(self):
+        """Copy link to the clipboard available for pasting"""
+        # copy() is a class method no need for an instance
+        try:
+            Clipboard.copy(self.url)
+        except:
+            self.ids.link.text = self.link_message
+
+    def open_link(self):
+        """Open link with default browser"""
+        try:
+            webbrowser.open(self.url)
+        except:
+            self.ids.link.text = self.link_message
+
 
 class RootWidget(ScreenManager):
     pass
