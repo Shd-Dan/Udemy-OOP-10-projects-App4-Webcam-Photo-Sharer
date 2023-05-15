@@ -17,6 +17,7 @@ Builder.load_file("frontend.kv")
 class CameraScreen(Screen):
     def start(self):
         """Starts camera and changes Button text"""
+        self.ids.camera.opacity = 1
         self.ids.camera.play = True
         self.ids.camera_button.text = "Stop Camera"
         self.ids.camera.texture = self.ids.camera._camera.texture
